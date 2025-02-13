@@ -1,6 +1,8 @@
-# 泛型
+# Java 基础
 
-## 泛型有哪些限制？
+## 泛型
+
+### 泛型有哪些限制？
 
 1. 类型擦除：泛型信息在编译后会被擦除，运行时无法获取泛型的实际类型参数。
 2. 不能使用基本类型作为类型参数：泛型的类型参数必须是引用类型。
@@ -142,7 +144,7 @@ class MyClass<T> implements T {}
 class MyClass<T> {}
 ```
 
-## 桥方法是什么？
+### 桥方法是什么？
 
 **桥方法（Bridge Method）**是 Java 编译器为了解决泛型类型擦除和多态冲突而自动生成的一种方法。
 例如：
@@ -191,3 +193,28 @@ class Child extends Parent<String> {
     }
 }
 ```
+
+## 集合
+
+### fail-fast 和 fail-safe 是什么？
+
+**fail-fast** 和 **fail-safe** 是 Java 中集合框架的两种不同的迭代器行为机制，主要区别在于它们在遍历集合时对并发修改的处理方式。
+
+1. Fail-Fast（快速失败）
+
+- 当集合在遍历过程中被修改（添加、删除或更新元素），会立即抛出 ConcurrentModificationException 异常。这是 Java 集合框架中大多数集合类的默认行为，例如 ArrayList、HashMap 等。
+- 实现原理：
+  - 集合内部维护一个 modCount（修改计数器），用于记录集合被修改的次数。
+  - 在创建迭代器时，会将 modCount 的值保存到迭代器的 expectedModCount 中。
+  - 每次调用迭代器的 next() 或 remove() 方法时，会检查 modCount 是否等于 expectedModCount。如果不相等，说明集合被修改，抛出 ConcurrentModificationException。
+- 适用场景：
+  - 适用于单线程环境。
+
+2. Fail-Safe（安全失败）
+
+- 允许在遍历集合时对集合进行修改，而不会抛出异常。例如 CopyOnWriteArrayList 和 ConcurrentHashMap。
+- 实现原理：
+  - 通过创建集合的副本或使用线程安全的集合来实现。
+  - 即使原始集合被修改，迭代器也不会受到影响。
+- 适用场景：
+  - 适用于多线程环境，允许在遍历时对集合进行并发修改。
