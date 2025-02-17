@@ -2,7 +2,7 @@
 
   - [Java 基础](./docs/Java基础.md)
   - [Java 集合](./docs/Java集合.md)
-  - [Java 多线程](./docs/b-3Java多线程.md)
+  - [Java 多线程](./docs/Java并发.md)
   - [jvm](./docs/b-4jvm.md)
 
 - 计算机基础
