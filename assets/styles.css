@@ -2002,7 +2002,7 @@ body .sidebar {
     --code-block-border-radius: var(--border-radius-m);
     --code-block-line-height: var(--base-line-height);
     --code-block-margin: 1em 0;
-    --code-block-padding: 1.75em 1.5em 1.5em 1.5em;
+    --code-block-padding: 1em 1.5em 1em 1.5em;
     --code-inline-background: var(--code-theme-background);
     --code-inline-border-radius: var(--border-radius-s);
     --code-inline-color: var(--code-theme-text);
@@ -2083,7 +2083,7 @@ body .sidebar {
 }
 
 :root {
-    --copycode-background: #808080;
+    --copycode-background: #bebdbd;
     --copycode-color: #fff
 }
 

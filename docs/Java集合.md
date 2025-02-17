@@ -167,3 +167,5 @@ Java 8 中 ConcurrentHashMap 加入元素的过程：
   - 如果插入的桶正在迁移，线程会协助完成迁移，然后再插入数据。
 
 ## PriorityQueue
+
+参考链接：https://zhuanlan.zhihu.com/p/94943012 >
