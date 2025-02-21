@@ -108,3 +108,7 @@ public class InterruptNormalExample {
 ## notify()会立刻释放锁么？
 
 参考链接：https://www.jianshu.com/p/ffc0c755fd8d >
+
+## SynchronousQueue 介绍
+
+SynchronousQueue 是一种特殊的阻塞队列，它内部并不会存储元素。每一个 put 操作必须等待一个 take 操作，反之亦然，也就是说它是一个元素的直接传递通道，不持有元素。这种特性使得它非常适合用于线程间的直接传递数据，避免了元素在队列中存储的开销。SynchronousQueue 可用作 CachedThreadPool 的工作队列。
