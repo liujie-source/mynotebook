@@ -112,3 +112,32 @@ public class InterruptNormalExample {
 ## SynchronousQueue 介绍
 
 SynchronousQueue 是一种特殊的阻塞队列，它内部并不会存储元素。每一个 put 操作必须等待一个 take 操作，反之亦然，也就是说它是一个元素的直接传递通道，不持有元素。这种特性使得它非常适合用于线程间的直接传递数据，避免了元素在队列中存储的开销。SynchronousQueue 可用作 CachedThreadPool 的工作队列。
+
+## submit 与 execute 的区别是什么？
+
+1. 任务类型
+
+- execute 方法：只能接受 Runnable 类型的任务。Runnable 接口中的 run 方法没有返回值，意味着使用 execute 方法提交的任务不能直接返回执行结果。
+- submit 方法：既可以接受 Runnable 类型的任务，也可以接受 Callable 类型的任务。Callable 接口中的 call 方法可以有返回值，因此使用 submit 方法提交 Callable 任务时，可以获取任务的执行结果。
+
+2. 返回值
+
+- execute 方法：返回值类型为 void，即该方法不会返回任何结果。这意味着在调用 execute 方法后，无法直接获取任务的执行状态或结果，只能通过其他方式（如共享变量、回调机制等）来获取任务的执行情况。
+- submit 方法：返回一个 Future 对象，该对象可以用来检查任务的执行状态（如是否完成、是否取消）、等待任务完成并获取任务的执行结果，还可以取消任务的执行。
+
+3. 异常处理
+
+- execute 方法：如果 Runnable 任务在执行过程中抛出异常，该异常会被线程池捕获并记录，但是调用者无法直接从 execute 方法中获取到异常信息。通常，线程池会使用 UncaughtExceptionHandler 来处理未捕获的异常。
+- submit 方法：如果任务在执行过程中抛出异常，异常会被封装在 Future 对象中。当调用 Future 的 get 方法时，会抛出 ExecutionException，可以通过该异常的 getCause 方法获取实际的异常信息。
+
+## Runnable 与 Callable 的区别是什么？
+
+1. 返回值
+
+- Runnable：run() 方法的返回值类型是 void，这意味着使用 Runnable 定义的任务不能直接返回执行结果。如果需要获取任务的执行结果，通常需要通过共享变量、回调机制等其他方式来实现。
+- Callable：call() 方法可以返回一个结果，返回值的类型由泛型参数决定。在使用 Callable 定义任务时，可以直接从 call() 方法中返回计算结果，这使得获取任务的执行结果更加方便。
+
+2. 异常处理
+
+- Runnable：run() 方法不允许抛出已检查异常（Checked Exception），如果在 run() 方法中需要处理异常，只能使用 try-catch 块进行捕获和处理。
+- Callable：call() 方法声明抛出 Exception，这意味着可以在 call() 方法中抛出任何已检查异常或未检查异常，调用者可以在调用 call() 方法时捕获并处理这些异常。
